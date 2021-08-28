@@ -86,20 +86,20 @@ Explanation
         1. When & Why NMap say Port Status as Filtered ?
     </summary>
 
-    - No Reply for SYN Packet
-    - ICMP Error Recieved
-    - ............ 
+    [High Presence of Firewall]
+    - No Reply for SYN Packet [Firewall Dropped the Packet]
+    - ICMP Error Recieved [ICMP error messages]
 </details>
 
 <br>
-
 
 <details>
     <summary>
         2. Quick Difference Between [SYN Scan & TCP Connect Scan]:
     </summary>
 
-    - TCP Connect Syn is Time Consuming
+    - In SYN scan When the Remote Server Sends SYN+ACK Nmap sends a RST Flag, to discard the 3 Way Handshake, whereas in TCP COnnect SYN it completes the 3 Way Handshake
+    - SYN Scan are stealth Scan, since they might not be logged in the Firewall, but Modern Firewall and Next-Gen Firewall, IDPS, IDS, IPS can still detect it. A well configured Firewall, IDPS, IDS, IPS can also detect it.
 </details>
 
 <br>
@@ -117,5 +117,28 @@ Explanation
 <br>
 
 
+<details>
+    <summary>
+        4. Xmas scan (-sX) ?
+    </summary>
+
+    - Sets the FIN, PSH, and URG flags, lighting the packet up like a Christmas tree.
+    - `More to Written`
+</details>
+
+<br>
 
 
+<details>
+    <summary>
+        5. Firewall - Check, Identify, Evasion, Bypassing, Access Control Enum ?
+    </summary>
+
+    - Ack Scan (-sA) : The ACK scan probe packet has only the ACK flag set (unless you use --scanflags). When scanning unfiltered systems, open and closed ports will both return a RST packet. Nmap then labels them as unfiltered, meaning that they are reachable by the ACK packet, but whether they are open or closed is undetermined. Ports that don't respond, or send certain ICMP error messages back (type 3, code 0, 1, 2, 3, 9, 10, or 13), are labeled filtered.
+    - Fragment Packets (-f) :- Used to fragment the packets (i.e. split them into smaller pieces) making it less likely that the packets will be detected by a firewall or IDS.
+    - An alternative to -f, but providing more control over the size of the packets: --mtu <number>, accepts a maximum transmission unit size to use for the packets sent. This must be a multiple of 8.
+    - --scan-delay <time>ms:- used to add a delay between packets sent. This is very useful if the network is unstable, but also for evading any time-based firewall/IDS triggers which may be in place.
+    - --badsum:- this is used to generate in invalid checksum for packets. Any real TCP/IP stack would drop this packet, however, firewalls may potentially respond automatically, without bothering to check the checksum of the packet. As such, this switch can be used to determine the presence of a firewall/IDS.
+</details>
+
+<br>
